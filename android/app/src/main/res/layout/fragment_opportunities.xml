@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/deep_navy"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -18,14 +19,53 @@
         android:layout_height="wrap_content"
         android:text="Assistant Work, Research Papers, and Micro-Tasks."
         android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
+
+    <!-- Tuition to Tech Feature Banner Button -->
+    <Button
+        android:id="@+id/btnReplaceTuitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/accent_purple"
+        android:text="🔥 Replace Tuitions with Assistant Work"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAllOpps"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/indigo_dark"
+            android:text="All Gigs"
+            android:textColor="@color/mystic_cyan"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnResearchOpps"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/indigo_dark"
+            android:text="Research Only"
+            android:textColor="@color/mystic_cyan"
+            android:textSize="11sp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/card_dark"
         android:hint="Search by keyword, skill, or alumni..."
         android:padding="12dp"

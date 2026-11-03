@@ -2,16 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/deep_navy"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🌍 Explore KUETians & Labs"
+        android:text="🌍 Explore KUETians &amp; Labs"
         android:textColor="@color/mystic_cyan"
         android:textSize="22sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alumni across 40+ countries &amp; Verified Vouch Network."
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <!-- Country Hub Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnGermanyHub"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/indigo_dark"
+            android:text="🇩🇪 Germany (214)"
+            android:textColor="@color/mystic_cyan"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnUsaHub"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/indigo_dark"
+            android:text="🇺🇸 USA (1,245)"
+            android:textColor="@color/mystic_cyan"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnVouchJunior"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/accent_purple"
+            android:text="⭐ Vouch"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/etExploreSearch"

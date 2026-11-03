@@ -2,27 +2,46 @@
   <img src="assets/logo.png" alt="Wizards of Teligati Logo" width="100%" style="max-width: 800px; border-radius: 12px;"/>
   <h1>🧙 WIZARDS OF TELIGATI</h1>
   <h3>Connect. Collaborate. Grow.</h3>
-  <p><b>KUET's Professional, Career &amp; Collaboration Network</b></p>
+  <p><b>KUET's Professional, Career &amp; Collaboration Network (100% Pure Java)</b></p>
 </div>
 
 ---
 
-## 🌟 Vision & The 3 Segments
+## 🔐 Multi-Role Authentication System
 
-Wizards of Teligati is an exclusive digital ecosystem connecting the entire KUET community across batches, countries, companies, and research labs.
+The platform features tailored login and verification gateways for each KUET stakeholder:
 
-1. **🎓 Student Segment:**
-   * **Assistant-Based Earning:** Earn from alumni technical assistantships (৳10,000–৳15,000/mo) as a practical, career-building replacement for private tutoring.
-   * **Professional Portfolio:** Showcase verified CGPA, department rank, club leadership (SGIPC, Robonix, IEEE), and personal projects.
-   * **Research Opportunities:** Request research co-authorship under KUET faculty and alumni professors worldwide (IEEE/Springer papers).
+1. **🎓 Student Login:**
+   * Authenticate via KUET Student Roll (e.g., `2307003`) & Webmail.
+   * Direct access to Assistant work (replacing tuition), research co-authorships, and 1-page resume generation.
+   * **1-Tap Demo Student Login** available.
 
-2. **💼 Alumni Segment:**
-   * **Hire KUETians:** Recruit students for technical assistantships, micro-tasks (from ৳100+), and software gigs.
-   * **Job Postings:** Advertise global tech openings directly to verified KUET graduates.
-   * **Mentorship & Vouching:** Guide juniors for international higher studies and careers.
+2. **💼 Alumni Login:**
+   * Authenticate via Passing Batch (e.g., `2K12`), Current Company (e.g., `BMW Munich`), & verified alumni email.
+   * Ability to hire personal assistants, post micro-bounties, give official **"KUET Vouches"**, and release escrow payments.
+   * **1-Tap Demo Alumni Login** available.
 
-3. **🏛️ Teacher Segment:**
-   * **Research Collaboration:** Supervise, hire, and mentor students for research labs, conference papers, and PhD evaluations.
+3. **🏛️ Faculty & Teacher Login:**
+   * Authenticate via KUET Institutional Email (`azharul@cse.kuet.ac.bd`) & Department designation.
+   * Post research lab opportunities, supervise papers, and recruit student co-authors.
+   * **1-Tap Demo Faculty Login** available.
+
+---
+
+## 🌟 Strategic New Features Added
+
+* **🔥 "Tuition-to-Tech" Assistant Engine:**
+  * One-tap filter on the Careers portal that highlights remote technical assistant roles (৳10,000–৳15,000/mo) designed to replace private tutoring with real engineering experience.
+* **⭐ KUET Alumni Vouch System:**
+  * Alumni can endorse juniors with an official verified vouch badge directly within the directory.
+* **📄 1-Page KUET Verified Tech Resume Exporter:**
+  * Generates an exportable tech resume summarizing CGPA (3.84), department ranking, club leaderships (SGIPC, Robonix), and verified skills.
+* **🌍 Country Relocation Hubs:**
+  * Dedicated portals for Germany (Munich/Berlin) and USA (Silicon Valley/Austin) connecting students to local alumni chapters for housing, visa, and relocation guidance.
+* **⚡ Micro-Bounty Escrow Release:**
+  * Alumni employers can confirm task completion and release escrowed funds directly into the student's ledger.
+* **🪄 Teligati AI Security Scanner:**
+  * Real-time secret detection alerting students if they accidentally paste API keys, database passwords, or credentials into code proposals.
 
 ---
 
@@ -33,23 +52,24 @@ Wizards_of_teligati/
 ├── android/                 <-- Native Android App (100% Pure Java)
 │   ├── app/
 │   │   ├── src/main/java/com/teligati/app/
-│   │   │   ├── MainActivity.java
+│   │   │   ├── LoginActivity.java         (Multi-Role Student, Alumni, Faculty Auth)
+│   │   │   ├── MainActivity.java          (BottomNavigation Host)
 │   │   │   ├── adapter/
-│   │   │   │   ├── AlumniAdapter.java
-│   │   │   │   ├── OpportunityAdapter.java
-│   │   │   │   ├── ProjectAdapter.java
-│   │   │   │   └── TransactionAdapter.java
+│   │   │   │   ├── AlumniAdapter.java     (Mentorship & Vouching)
+│   │   │   │   ├── OpportunityAdapter.java (Tuition replacement & jobs)
+│   │   │   │   ├── ProjectAdapter.java    (Spellbook collaborations)
+│   │   │   │   └── TransactionAdapter.java (Escrow ledger)
 │   │   │   ├── fragment/
 │   │   │   │   ├── HomeFragment.java
-│   │   │   │   ├── ExploreFragment.java
+│   │   │   │   ├── ExploreFragment.java   (Country hubs & directory)
 │   │   │   │   ├── OpportunitiesFragment.java
 │   │   │   │   ├── ProjectsFragment.java
-│   │   │   │   ├── AiFragment.java
-│   │   │   │   └── ProfileFragment.java
+│   │   │   │   ├── AiFragment.java        (Teligati AI + Secret Scanner)
+│   │   │   │   └── ProfileFragment.java   (Resume export & escrow release)
 │   │   │   └── model/
 │   │   └── src/main/res/
-│   │       ├── drawable/logo_banner.png
 │   │       ├── layout/
+│   │       ├── menu/
 │   │       └── mipmap-*/ (Adaptive Custom Wizard Icon)
 │   ├── build.gradle.kts
 │   └── settings.gradle.kts
@@ -69,6 +89,7 @@ Wizards_of_teligati/
 
 ## 🚀 How to Run in Android Studio
 1. Open Android Studio.
-2. Select **File → Open** and choose the **`android`** folder.
+2. Select **File → Open** and choose the **`android`** folder:
+   `C:\Users\HP\OneDrive\Desktop\Wizards_of_teligati\android`
 3. Click the green **Play button (▶)** to run on your emulator or phone!
-4. Or export the `.apk` via **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+4. The app opens directly to the **Multi-Role Login Portal** with 1-tap demo logins for Student, Alumni, and Teacher!

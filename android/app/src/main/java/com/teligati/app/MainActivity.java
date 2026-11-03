@@ -7,10 +7,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teligati.app.fragment.*;
 
 public class MainActivity extends AppCompatActivity {
+    private String userRole = "STUDENT";
+    private String userId = "2307003";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("USER_ROLE") != null) {
+                userRole = getIntent().getStringExtra("USER_ROLE");
+            }
+            if (getIntent().getStringExtra("USER_ID") != null) {
+                userId = getIntent().getStringExtra("USER_ID");
+            }
+        }
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnItemSelectedListener(item -> {
@@ -27,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_ai) {
                 selected = new AiFragment();
             } else if (id == R.id.nav_profile) {
-                selected = new ProfileFragment();
+                Bundle args = new Bundle();
+                args.putString("USER_ROLE", userRole);
+                args.putString("USER_ID", userId);
+                ProfileFragment profileFrag = new ProfileFragment();
+                profileFrag.setArguments(args);
+                selected = profileFrag;
             }
             if (selected != null) {
                 getSupportFragmentManager().beginTransaction()
@@ -37,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // Default screen
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
