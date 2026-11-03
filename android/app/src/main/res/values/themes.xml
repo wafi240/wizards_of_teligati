@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.WizardsOfTeligati" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.WizardsOfTeligati" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/mystic_cyan</item>
+        <item name="colorSecondary">@color/accent_purple</item>
+        <item name="android:windowBackground">@color/deep_navy</item>
+        <item name="colorSurface">@color/card_dark</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnPrimary">@color/deep_navy</item>
+    </style>
 </resources>
