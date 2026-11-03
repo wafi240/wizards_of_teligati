@@ -1,12 +1,32 @@
-# 🧙 WIZARDS OF TELIGATI
-**Connect. Collaborate. Grow.**
-
-An exclusive digital ecosystem and collaboration network for KUET students, alumni, and faculty.
-Built completely in **Java** (Pure Java Native Android Application + Java Spring Boot 3 Backend).
+<div align="center">
+  <img src="assets/logo.png" alt="Wizards of Teligati Logo" width="100%" style="max-width: 800px; border-radius: 12px;"/>
+  <h1>🧙 WIZARDS OF TELIGATI</h1>
+  <h3>Connect. Collaborate. Grow.</h3>
+  <p><b>KUET's Professional, Career &amp; Collaboration Network</b></p>
+</div>
 
 ---
 
-## 📁 Project Architecture (100% Java)
+## 🌟 Vision & The 3 Segments
+
+Wizards of Teligati is an exclusive digital ecosystem connecting the entire KUET community across batches, countries, companies, and research labs.
+
+1. **🎓 Student Segment:**
+   * **Assistant-Based Earning:** Earn from alumni technical assistantships (৳10,000–৳15,000/mo) as a practical, career-building replacement for private tutoring.
+   * **Professional Portfolio:** Showcase verified CGPA, department rank, club leadership (SGIPC, Robonix, IEEE), and personal projects.
+   * **Research Opportunities:** Request research co-authorship under KUET faculty and alumni professors worldwide (IEEE/Springer papers).
+
+2. **💼 Alumni Segment:**
+   * **Hire KUETians:** Recruit students for technical assistantships, micro-tasks (from ৳100+), and software gigs.
+   * **Job Postings:** Advertise global tech openings directly to verified KUET graduates.
+   * **Mentorship & Vouching:** Guide juniors for international higher studies and careers.
+
+3. **🏛️ Teacher Segment:**
+   * **Research Collaboration:** Supervise, hire, and mentor students for research labs, conference papers, and PhD evaluations.
+
+---
+
+## 📁 100% Pure Java Architecture
 
 ```
 Wizards_of_teligati/
@@ -27,42 +47,28 @@ Wizards_of_teligati/
 │   │   │   │   ├── AiFragment.java
 │   │   │   │   └── ProfileFragment.java
 │   │   │   └── model/
-│   │   │       ├── AlumniProfile.java
-│   │   │       ├── Opportunity.java
-│   │   │       ├── OpportunityCategory.java
-│   │   │       ├── ProjectItem.java
-│   │   │       ├── SampleData.java
-│   │   │       └── TransactionRecord.java
 │   │   └── src/main/res/
+│   │       ├── drawable/logo_banner.png
 │   │       ├── layout/
-│   │       ├── menu/
-│   │       └── values/
+│   │       └── mipmap-*/ (Adaptive Custom Wizard Icon)
 │   ├── build.gradle.kts
 │   └── settings.gradle.kts
-├── backend/                 <-- Spring Boot 3 REST API (100% Pure Java 17)
+├── backend/                 <-- Spring Boot 3 REST API (Pure Java 17)
 │   ├── src/main/java/com/teligati/backend/
-│   │   ├── BackendApplication.java
-│   │   ├── controller/ApiController.java
-│   │   ├── model/
-│   │   └── repository/
 │   └── build.gradle
 └── README.md
 ```
 
 ---
 
-## 🚀 How to Run in Android Studio
-
-1. Open **Android Studio**.
-2. Click **File → Open** and select the **`android`** folder:
-   ```
-   C:\Users\HP\OneDrive\Desktop\Wizards_of_teligati\android
-   ```
-3. Click the green **Play button (▶)** in the top toolbar to launch on your Pixel 8 emulator or real device.
-4. Or generate the `.apk` via **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+## 🛡️ Core Rules
+* **No Repository Marketplace / Buying & Selling:** Projects and code exist strictly for learning, showcase, and team collaboration.
+* **Work-Based Compensation Only:** Payments are strictly tied to real services rendered (Assistant Hiring, Freelance work, and Jobs) backed by an escrow ledger.
 
 ---
 
-## 🛡️ Core Product Rules
-* **No Repository Marketplace / Buying & Selling:** Code repositories exist strictly for portfolio showcases, learning, and collaboration.
-* **Work-Based Compensation:** Payments are strictly for genuine professional work (Alumni Assistant hiring, freelance tasks, paid contributions, and jobs) tracked via an escrow transaction ledger.
+## 🚀 How to Run in Android Studio
+1. Open Android Studio.
+2. Select **File → Open** and choose the **`android`** folder.
+3. Click the green **Play button (▶)** to run on your emulator or phone!
+4. Or export the `.apk` via **Build → Build Bundle(s) / APK(s) → Build APK(s)**.

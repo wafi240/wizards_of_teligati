@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/deep_navy"
     android:padding="16dp">
 
     <LinearLayout
@@ -9,25 +11,29 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🧙 Wizards of Teligati"
-            android:textColor="@color/mystic_cyan"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Connect. Collaborate. Grow."
-            android:textColor="@color/accent_purple"
-            android:textSize="14sp" />
-
+        <!-- App Logo Banner -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/ivLogoBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_banner"
+                android:contentDescription="Wizards of Teligati" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 3-Pillar Ecosystem Overview -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
             android:layout_marginBottom="16dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,25 +44,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KUET 3-Pillar Ecosystem"
+                    android:text="🏛️ KUET 3-Pillar Ecosystem"
                     android:textColor="@color/mystic_cyan"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎓 Students: Earn from Alumni Assistant roles (replacing tuitions) & research."
+                    android:layout_marginTop="4dp"
+                    android:text="🎓 Students: Earn from Alumni Assistant roles (replacing tuitions) &amp; research."
                     android:textColor="@color/text_primary"
                     android:textSize="12sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💼 Alumni: Hire KUET juniors & advertise global tech roles."
+                    android:layout_marginTop="2dp"
+                    android:text="💼 Alumni: Hire KUET juniors &amp; advertise global tech roles."
                     android:textColor="@color/text_primary"
                     android:textSize="12sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🏛️ Teachers: Recruit students for PhD research & conference papers."
+                    android:layout_marginTop="2dp"
+                    android:text="🔬 Teachers: Recruit students for PhD research &amp; conference papers."
                     android:textColor="@color/text_primary"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -73,6 +83,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
             android:layout_marginTop="8dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,7 +100,35 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📢 Hiring 2 KUET undergraduates as Technical Assistants! If you know Python & basic automation, check the Careers tab. ৳15,000/month with flexible hours."
+                    android:layout_marginTop="4dp"
+                    android:text="📢 Hiring 2 KUET undergraduates as Technical Assistants! If you know Python &amp; basic automation, check the Careers tab. ৳15,000/month with flexible hours."
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/card_dark"
+                android:orientation="vertical"
+                android:padding="14dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prof. Dr. K. M. Azharul Hasan • CSE Dept"
+                    android:textColor="@color/mystic_cyan"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="🔬 Our Big Data &amp; Intelligent Computing Lab is accepting student co-authors for a real-time object detection research paper. Apply under Careers."
                     android:textColor="@color/text_primary"
                     android:textSize="13sp" />
             </LinearLayout>
