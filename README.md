@@ -52,8 +52,16 @@ Wizards_of_teligati/
 ├── android/                 <-- Native Android App (100% Pure Java)
 │   ├── app/
 │   │   ├── src/main/java/com/teligati/app/
-│   │   │   ├── LoginActivity.java         (Multi-Role Student, Alumni, Faculty Auth)
-│   │   │   ├── MainActivity.java          (BottomNavigation Host)
+│   │   │   ├── auth/
+│   │   │   │   ├── AuthGatewayActivity.java       (Role Selection Welcome Portal)
+│   │   │   │   ├── StudentLoginActivity.java      (Dedicated Student Login)
+│   │   │   │   ├── StudentRegisterActivity.java   (Dedicated Student Registration)
+│   │   │   │   ├── AlumniLoginActivity.java       (Dedicated Alumni Login)
+│   │   │   │   ├── AlumniRegisterActivity.java    (Dedicated Alumni Registration)
+│   │   │   │   ├── FacultyLoginActivity.java      (Dedicated Faculty Login)
+│   │   │   │   └── FacultyRegisterActivity.java   (Dedicated Faculty Registration)
+│   │   │   ├── LoginActivity.java                 (Alternative Tabbed Role Auth)
+│   │   │   ├── MainActivity.java                  (BottomNavigation Host)
 │   │   │   ├── adapter/
 │   │   │   │   ├── AlumniAdapter.java     (Mentorship & Vouching)
 │   │   │   │   ├── OpportunityAdapter.java (Tuition replacement & jobs)

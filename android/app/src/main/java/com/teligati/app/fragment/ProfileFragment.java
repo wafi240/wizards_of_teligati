@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teligati.app.LoginActivity;
+import com.teligati.app.auth.AuthGatewayActivity;
 import com.teligati.app.R;
 import com.teligati.app.adapter.TransactionAdapter;
 import com.teligati.app.model.Opportunity;
@@ -130,7 +130,7 @@ public class ProfileFragment extends Fragment {
         });
 
         btnLogout.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
+            Intent intent = new Intent(getContext(), AuthGatewayActivity.class);
             startActivity(intent);
             if (getActivity() != null) {
                 getActivity().finish();

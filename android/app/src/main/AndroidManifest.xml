@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.AuthGatewayActivity"
             android:exported="true"
             android:theme="@style/Theme.WizardsOfTeligati">
             <intent-filter>
@@ -23,6 +23,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".auth.StudentLoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".auth.StudentRegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".auth.AlumniLoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".auth.AlumniRegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".auth.FacultyLoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".auth.FacultyRegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WizardsOfTeligati" />
 
         <activity
             android:name=".MainActivity"
