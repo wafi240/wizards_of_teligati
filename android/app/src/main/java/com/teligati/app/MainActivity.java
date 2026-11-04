@@ -1,8 +1,10 @@
 package com.teligati.app;
 
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teligati.app.fragment.*;
@@ -10,6 +12,7 @@ import com.teligati.app.fragment.*;
 public class MainActivity extends AppCompatActivity {
     private String userRole = "STUDENT";
     private String userId = "2307003";
+    private FloatingActionButton fabAi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,22 @@ public class MainActivity extends AppCompatActivity {
                 userId = getIntent().getStringExtra("USER_ID");
             }
         }
+
+        fabAi = findViewById(R.id.fabAiWizard);
+
+        // Auto-hide the AI FAB when already inside AiFragment so it never overlaps the Send button!
+        getSupportFragmentManager().registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
+            @Override
+            public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
+                if (fabAi != null) {
+                    if (f instanceof AiFragment) {
+                        fabAi.hide();
+                    } else {
+                        fabAi.show();
+                    }
+                }
+            }
+        }, false);
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnItemSelectedListener(item -> {
@@ -53,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        FloatingActionButton fabAi = findViewById(R.id.fabAiWizard);
         if (fabAi != null) {
             fabAi.setOnClickListener(v -> {
+                fabAi.hide();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AiFragment())
                         .commit();

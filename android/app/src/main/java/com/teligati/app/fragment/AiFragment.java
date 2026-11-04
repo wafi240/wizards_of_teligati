@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ public class AiFragment extends Fragment {
         TextView tvChat = view.findViewById(R.id.tvAiChat);
         EditText etPrompt = view.findViewById(R.id.etAiPrompt);
         ImageButton btnSend = view.findViewById(R.id.btnSendAi);
+        ScrollView scrollChat = view.findViewById(R.id.scrollAiChat);
         Button chipTuition = view.findViewById(R.id.chipTuition);
         Button chipSecret = view.findViewById(R.id.chipSecret);
         Button chipResearch = view.findViewById(R.id.chipResearch);
@@ -40,6 +42,9 @@ public class AiFragment extends Fragment {
                 }
                 tvChat.append("\n\nYou: " + prompt + "\n\nTeligati AI: " + reply);
                 etPrompt.setText("");
+                if (scrollChat != null) {
+                    scrollChat.post(() -> scrollChat.fullScroll(View.FOCUS_DOWN));
+                }
             }
         });
 
