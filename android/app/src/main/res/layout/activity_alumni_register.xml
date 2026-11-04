@@ -9,111 +9,112 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💼 Register as KUET Alumni"
+            android:text="💼  Create Alumni Account"
             android:textColor="@color/accent_purple"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Connect with the global KUET network &amp; recruit student assistants."
+            android:text="Connect with the KUET global network"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_marginBottom="28dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="Full Name (e.g. Engr. Tanvir Ahmed)"
+            android:hint="Full Name"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniBatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
             android:hint="Dept &amp; Batch (e.g. CSE 2K12)"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniCompany"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="Current Company (e.g. BMW Group, Google)"
+            android:hint="Current Company"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniPosition"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="Designation (e.g. Staff Software Engineer)"
+            android:hint="Job Title"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniCountry"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="Country &amp; City (e.g. Munich, Germany)"
+            android:hint="City, Country"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegAlumniEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/btnCreateAlumniAccount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="52dp"
             android:backgroundTint="@color/accent_purple"
-            android:padding="14dp"
-            android:text="Create Alumni Account"
+            android:text="Create Account"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/tvBackToAlumniLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="Already have an account? Log In"
+            android:text="Already have an account?  Log In"
             android:textColor="@color/mystic_cyan"
             android:textSize="14sp" />
+
     </LinearLayout>
 </ScrollView>

@@ -9,60 +9,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎓 Create Student Account"
+            android:text="🎓  Create Student Account"
             android:textColor="@color/mystic_cyan"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Get verified to apply for paid alumni assistant work &amp; research."
+            android:text="Join the KUET professional network"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_marginBottom="28dp"/>
 
         <EditText
             android:id="@+id/etRegStudentName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
             android:hint="Full Name"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegStudentRoll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="KUET Roll (e.g. 2307003)"
+            android:hint="KUET Roll Number"
             android:inputType="number"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <EditText
                 android:id="@+id/etRegStudentDept"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/card_dark"
-                android:hint="Dept (e.g. CSE)"
+                android:hint="Department"
                 android:padding="14dp"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary" />
@@ -70,7 +71,7 @@
             <EditText
                 android:id="@+id/etRegStudentBatch"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@color/card_dark"
@@ -83,59 +84,59 @@
         <EditText
             android:id="@+id/etRegStudentCgpa"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="Current CGPA (e.g. 3.84)"
+            android:hint="CGPA (optional)"
             android:inputType="numberDecimal"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegStudentEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="KUET Webmail / Personal Email"
+            android:hint="Email Address"
             android:inputType="textEmailAddress"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/etRegStudentPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
             android:hint="Create Password"
             android:inputType="textPassword"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/btnCreateStudentAccount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="52dp"
             android:backgroundTint="@color/mystic_cyan"
-            android:padding="14dp"
-            android:text="Create Student Account"
+            android:text="Create Account"
             android:textColor="@color/deep_navy"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/tvBackToStudentLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="Already have an account? Log In"
+            android:text="Already have an account?  Log In"
             android:textColor="@color/accent_purple"
             android:textSize="14sp" />
+
     </LinearLayout>
 </ScrollView>

@@ -9,92 +9,77 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💼 Alumni Login"
+            android:text="💼  Alumni Login"
             android:textColor="@color/accent_purple"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Hire KUET assistants, post micro-tasks, and mentor juniors."
+            android:text="Welcome back to Wizards of Teligati"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Alumni Email or Batch"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_marginBottom="32dp"/>
 
         <EditText
             android:id="@+id/etAlumniEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="e.g. tanvir.bmw@kuet.alumni.bd"
+            android:hint="Email Address"
             android:inputType="textEmailAddress"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Password"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="12dp"/>
 
         <EditText
             android:id="@+id/etAlumniPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="••••••••"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/btnLoginAlumni"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_height="52dp"
             android:backgroundTint="@color/accent_purple"
-            android:padding="14dp"
-            android:text="Log In as Alumni"
+            android:text="Log In"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
 
         <Button
             android:id="@+id/btnAlumniDemo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/indigo_dark"
-            android:text="⚡ 1-Tap Demo: Engr. Tanvir (BMW Munich)"
-            android:textColor="@color/accent_purple" />
+            android:text="⚡  Try Demo Account"
+            android:textColor="@color/accent_purple"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:id="@+id/tvGoToAlumniRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:text="Don't have an account? Register as Alumni"
+            android:text="Don't have an account?  Register here"
             android:textColor="@color/mystic_cyan"
             android:textSize="14sp" />
+
     </LinearLayout>
 </ScrollView>

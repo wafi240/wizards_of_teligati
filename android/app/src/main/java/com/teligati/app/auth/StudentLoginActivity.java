@@ -16,27 +16,21 @@ public class StudentLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
 
-        etRoll = findViewById(R.id.etStudentRoll);
+        etRoll     = findViewById(R.id.etStudentRoll);
         etPassword = findViewById(R.id.etStudentPassword);
 
         findViewById(R.id.btnLoginStudent).setOnClickListener(v -> {
             String roll = etRoll.getText().toString().trim();
-            String pwd = etPassword.getText().toString().trim();
             if (roll.isEmpty()) {
-                Toast.makeText(this, "Please enter your KUET Roll number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter your Roll number", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Welcome Student Roll " + roll + " ✓", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("USER_ROLE", "STUDENT");
-            intent.putExtra("USER_ID", roll);
-            startActivity(intent);
-            finish();
+            launchMain("STUDENT", roll);
         });
 
         findViewById(R.id.btnStudentDemo).setOnClickListener(v -> {
             etRoll.setText("2307003");
-            etPassword.setText("student2026");
+            etPassword.setText("demo");
             findViewById(R.id.btnLoginStudent).performClick();
         });
 
@@ -44,5 +38,15 @@ public class StudentLoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, StudentRegisterActivity.class));
             finish();
         });
+    }
+
+    private void launchMain(String role, String id) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("USER_ROLE", role);
+        intent.putExtra("USER_ID", id);
+        // Clear the entire auth back-stack so Back never returns to login
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

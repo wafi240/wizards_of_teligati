@@ -16,31 +16,35 @@ public class AlumniRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alumni_register);
 
-        etName = findViewById(R.id.etRegAlumniName);
-        etBatch = findViewById(R.id.etRegAlumniBatch);
-        etCompany = findViewById(R.id.etRegAlumniCompany);
+        etName     = findViewById(R.id.etRegAlumniName);
+        etBatch    = findViewById(R.id.etRegAlumniBatch);
+        etCompany  = findViewById(R.id.etRegAlumniCompany);
         etPosition = findViewById(R.id.etRegAlumniPosition);
-        etCountry = findViewById(R.id.etRegAlumniCountry);
-        etEmail = findViewById(R.id.etRegAlumniEmail);
+        etCountry  = findViewById(R.id.etRegAlumniCountry);
+        etEmail    = findViewById(R.id.etRegAlumniEmail);
 
         findViewById(R.id.btnCreateAlumniAccount).setOnClickListener(v -> {
-            String name = etName.getText().toString().trim();
+            String name    = etName.getText().toString().trim();
             String company = etCompany.getText().toString().trim();
             if (name.isEmpty() || company.isEmpty()) {
-                Toast.makeText(this, "Please enter your Name and Current Company", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Name and Company are required", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Alumni Account Registered for " + name + " ✓", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("USER_ROLE", "ALUMNI");
-            intent.putExtra("USER_ID", name);
-            startActivity(intent);
-            finish();
+            launchMain("ALUMNI", name);
         });
 
         findViewById(R.id.tvBackToAlumniLogin).setOnClickListener(v -> {
             startActivity(new Intent(this, AlumniLoginActivity.class));
             finish();
         });
+    }
+
+    private void launchMain(String role, String id) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("USER_ROLE", role);
+        intent.putExtra("USER_ID", id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

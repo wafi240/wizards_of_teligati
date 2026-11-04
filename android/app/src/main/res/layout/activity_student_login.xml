@@ -9,92 +9,77 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎓 Student Login"
+            android:text="🎓  Student Login"
             android:textColor="@color/mystic_cyan"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Access your KUET verified portfolio, assistant gigs, and research papers."
+            android:text="Welcome back to Wizards of Teligati"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Student Roll Number"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_marginBottom="32dp"/>
 
         <EditText
             android:id="@+id/etStudentRoll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="e.g. 2307003"
+            android:hint="KUET Roll Number"
             android:inputType="number"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Password"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="12dp"/>
 
         <EditText
             android:id="@+id/etStudentPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_height="52dp"
             android:background="@color/card_dark"
-            android:hint="••••••••"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="14dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/btnLoginStudent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_height="52dp"
             android:backgroundTint="@color/mystic_cyan"
-            android:padding="14dp"
-            android:text="Log In as Student"
+            android:text="Log In"
             android:textColor="@color/deep_navy"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
 
         <Button
             android:id="@+id/btnStudentDemo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/indigo_dark"
-            android:text="⚡ 1-Tap Demo Student Login (Roll 2307003)"
-            android:textColor="@color/mystic_cyan" />
+            android:text="⚡  Try Demo Account"
+            android:textColor="@color/mystic_cyan"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:id="@+id/tvGoToStudentRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:text="Don't have an account? Register as Student"
+            android:text="Don't have an account?  Register here"
             android:textColor="@color/accent_purple"
             android:textSize="14sp" />
+
     </LinearLayout>
 </ScrollView>

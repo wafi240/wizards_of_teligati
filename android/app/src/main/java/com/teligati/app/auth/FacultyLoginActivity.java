@@ -16,26 +16,21 @@ public class FacultyLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_login);
 
-        etEmail = findViewById(R.id.etFacultyEmail);
+        etEmail    = findViewById(R.id.etFacultyEmail);
         etPassword = findViewById(R.id.etFacultyPassword);
 
         findViewById(R.id.btnLoginFaculty).setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
             if (email.isEmpty()) {
-                Toast.makeText(this, "Please enter your Institutional Email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter your institutional email", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Welcome Respected Faculty Member ✓", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("USER_ROLE", "FACULTY");
-            intent.putExtra("USER_ID", email);
-            startActivity(intent);
-            finish();
+            launchMain("FACULTY", email);
         });
 
         findViewById(R.id.btnFacultyDemo).setOnClickListener(v -> {
             etEmail.setText("azharul@cse.kuet.ac.bd");
-            etPassword.setText("faculty2026");
+            etPassword.setText("demo");
             findViewById(R.id.btnLoginFaculty).performClick();
         });
 
@@ -43,5 +38,14 @@ public class FacultyLoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, FacultyRegisterActivity.class));
             finish();
         });
+    }
+
+    private void launchMain(String role, String id) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("USER_ROLE", role);
+        intent.putExtra("USER_ID", id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

@@ -16,26 +16,21 @@ public class AlumniLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alumni_login);
 
-        etEmail = findViewById(R.id.etAlumniEmail);
+        etEmail    = findViewById(R.id.etAlumniEmail);
         etPassword = findViewById(R.id.etAlumniPassword);
 
         findViewById(R.id.btnLoginAlumni).setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
             if (email.isEmpty()) {
-                Toast.makeText(this, "Please enter your Alumni Email or Batch", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter your email or batch", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Welcome Verified Alumni ✓", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("USER_ROLE", "ALUMNI");
-            intent.putExtra("USER_ID", email);
-            startActivity(intent);
-            finish();
+            launchMain("ALUMNI", email);
         });
 
         findViewById(R.id.btnAlumniDemo).setOnClickListener(v -> {
-            etEmail.setText("tanvir.bmw@kuet.alumni.bd");
-            etPassword.setText("alumni2026");
+            etEmail.setText("tanvir@kuet.alumni.bd");
+            etPassword.setText("demo");
             findViewById(R.id.btnLoginAlumni).performClick();
         });
 
@@ -43,5 +38,14 @@ public class AlumniLoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, AlumniRegisterActivity.class));
             finish();
         });
+    }
+
+    private void launchMain(String role, String id) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("USER_ROLE", role);
+        intent.putExtra("USER_ID", id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

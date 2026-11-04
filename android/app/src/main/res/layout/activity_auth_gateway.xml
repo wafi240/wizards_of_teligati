@@ -10,16 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
+        <!-- Logo Banner -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="8dp">
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,72 +33,72 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Choose Your Authentication Portal"
+            android:text="Who are you?"
             android:textColor="@color/mystic_cyan"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:text="Dedicated login &amp; account creation for each KUET role"
+            android:text="Choose your KUET role to continue"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="13sp"
+            android:layout_marginBottom="24dp"/>
 
-        <!-- 1. Student Portal Card -->
+        <!-- Student Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
-            app:cardCornerRadius="14dp">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/card_dark"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎓 Student Portal"
+                    android:text="🎓  Student"
                     android:textColor="@color/mystic_cyan"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Assistant-based earning (replacing tuitions), research papers, and portfolios."
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Find assistant work, research &amp; internships"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnStudentLogin"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/mystic_cyan"
-                        android:text="Student Log In"
+                        android:text="Log In"
                         android:textColor="@color/deep_navy"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/btnStudentRegister"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/indigo_dark"
                         android:text="Create Account"
@@ -106,57 +107,58 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 2. Alumni Portal Card -->
+        <!-- Alumni Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
-            app:cardCornerRadius="14dp">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/card_dark"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💼 Alumni Portal"
+                    android:text="💼  Alumni"
                     android:textColor="@color/accent_purple"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Hire KUET assistants, post micro-tasks, advertise tech jobs, and vouch for juniors."
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Hire assistants, mentor juniors &amp; post jobs"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnAlumniLogin"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/accent_purple"
-                        android:text="Alumni Log In"
+                        android:text="Log In"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/btnAlumniRegister"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/indigo_dark"
                         android:text="Create Account"
@@ -165,57 +167,58 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 3. Faculty Portal Card -->
+        <!-- Faculty Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="14dp">
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/card_dark"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🏛️ Faculty &amp; Teacher Portal"
+                    android:text="🏛️  Faculty"
                     android:textColor="@color/emerald_green"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Research lab supervision, conference paper co-authorship, and academic mentorship."
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Recruit student researchers &amp; co-authors"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnFacultyLogin"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/emerald_green"
-                        android:text="Faculty Log In"
+                        android:text="Log In"
                         android:textColor="@color/deep_navy"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/btnFacultyRegister"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/indigo_dark"
                         android:text="Create Account"
@@ -224,15 +227,15 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Guest Preview Button -->
+        <!-- Guest Preview -->
         <Button
             android:id="@+id/btnGuestPreview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/indigo_dark"
-            android:text="⚡ 1-Tap Quick Guest Explore"
-            android:textColor="@color/text_primary" />
+            android:text="Explore as Guest"
+            android:textColor="@color/text_secondary" />
+
     </LinearLayout>
 </ScrollView>

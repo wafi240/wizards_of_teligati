@@ -16,32 +16,36 @@ public class StudentRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_register);
 
-        etName = findViewById(R.id.etRegStudentName);
-        etRoll = findViewById(R.id.etRegStudentRoll);
-        etDept = findViewById(R.id.etRegStudentDept);
-        etBatch = findViewById(R.id.etRegStudentBatch);
-        etCgpa = findViewById(R.id.etRegStudentCgpa);
-        etEmail = findViewById(R.id.etRegStudentEmail);
+        etName     = findViewById(R.id.etRegStudentName);
+        etRoll     = findViewById(R.id.etRegStudentRoll);
+        etDept     = findViewById(R.id.etRegStudentDept);
+        etBatch    = findViewById(R.id.etRegStudentBatch);
+        etCgpa     = findViewById(R.id.etRegStudentCgpa);
+        etEmail    = findViewById(R.id.etRegStudentEmail);
         etPassword = findViewById(R.id.etRegStudentPassword);
 
         findViewById(R.id.btnCreateStudentAccount).setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
             String roll = etRoll.getText().toString().trim();
             if (name.isEmpty() || roll.isEmpty()) {
-                Toast.makeText(this, "Please fill in your Name and Roll number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Name and Roll number are required", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Student Account Created for " + name + " ✓", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("USER_ROLE", "STUDENT");
-            intent.putExtra("USER_ID", roll);
-            startActivity(intent);
-            finish();
+            launchMain("STUDENT", roll);
         });
 
         findViewById(R.id.tvBackToStudentLogin).setOnClickListener(v -> {
             startActivity(new Intent(this, StudentLoginActivity.class));
             finish();
         });
+    }
+
+    private void launchMain(String role, String id) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("USER_ROLE", role);
+        intent.putExtra("USER_ID", id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
