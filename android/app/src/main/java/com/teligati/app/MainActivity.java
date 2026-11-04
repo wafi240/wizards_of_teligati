@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teligati.app.fragment.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 selected = new OpportunitiesFragment();
             } else if (id == R.id.nav_projects) {
                 selected = new ProjectsFragment();
-            } else if (id == R.id.nav_ai) {
-                selected = new AiFragment();
             } else if (id == R.id.nav_profile) {
                 Bundle args = new Bundle();
                 args.putString("USER_ROLE", userRole);
@@ -53,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
+        FloatingActionButton fabAi = findViewById(R.id.fabAiWizard);
+        if (fabAi != null) {
+            fabAi.setOnClickListener(v -> {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new AiFragment())
+                        .commit();
+            });
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

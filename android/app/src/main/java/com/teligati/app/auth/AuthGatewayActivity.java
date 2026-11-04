@@ -2,7 +2,6 @@ package com.teligati.app.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.teligati.app.MainActivity;
 import com.teligati.app.R;
@@ -36,7 +35,9 @@ public class AuthGatewayActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("USER_ROLE", "STUDENT");
             intent.putExtra("USER_ID", "2307003");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         });
     }
 }
