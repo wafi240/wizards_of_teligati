@@ -127,4 +127,61 @@ public class SampleData {
         list.add(new TransactionRecord("TX-9105", "Automated Script Development", "Assistant Work", 3500.0, "Nov 02, 2026", "In Escrow"));
         return list;
     }
+
+    public static List<ReferenceRequest> getReferenceRequests() {
+        List<ReferenceRequest> list = new ArrayList<>();
+        list.add(new ReferenceRequest(
+                1, "Samun Sadab Wafi", "2307003", "CSE", "BMW Group",
+                "Brother, I am applying for the Cloud Automation role at BMW Munich. I have built Docker microservices and would be grateful for your alumni referral.",
+                "Pending"
+        ));
+        list.add(new ReferenceRequest(
+                2, "Tahmidur Rahman", "2007045", "CSE", "Google",
+                "Assalamu Alaikum brother. Applying for SDE-1 at Google Munich. Can you kindly review my resume and vouch for my KUET background?",
+                "Pending"
+        ));
+        list.add(new ReferenceRequest(
+                3, "Nafisa Anjum", "2103012", "EEE", "Tesla",
+                "Hi Engr. Tanvir, seeking reference and advice for embedded systems internship at Tesla European Gigafactory.",
+                "Endorsed"
+        ));
+        return list;
+    }
+
+    public static List<ResearchProposal> getResearchProposals() {
+        List<ResearchProposal> list = new ArrayList<>();
+        list.add(new ResearchProposal(
+                1, "Farhan Sadik", "1907008",
+                "Adaptive Federated Learning for Distributed Medical IoT Devices",
+                "We propose a privacy-preserving federated aggregation mechanism with differential privacy for resource-constrained medical edge sensors.",
+                "PhD Proposal", "Pending"
+        ));
+        list.add(new ResearchProposal(
+                2, "Sabbir Hossain", "2007019",
+                "Real-time Vision Transformer on Low-Power Edge Accelerators",
+                "Investigating INT8 quantization and attention pruning for deploying ViTs on KUET drone surveillance prototypes.",
+                "Undergrad Thesis / Research", "Pending"
+        ));
+        return list;
+    }
+
+    public static List<StudentApplicant> getStudentApplicants() {
+        List<StudentApplicant> list = new ArrayList<>();
+        list.add(new StudentApplicant(
+                1, "Samun Sadab Wafi", "2307003", "CSE (2K23)",
+                3.84, "Python, PyTorch, Java, ROS",
+                "Intelligent Systems and Big Data Lab", "Applicant"
+        ));
+        list.add(new StudentApplicant(
+                2, "Mehedi Hasan", "2107025", "CSE (2K21)",
+                3.78, "Distributed Systems, Go, Kubernetes",
+                "Cloud and Microservices Research", "Applicant"
+        ));
+        list.add(new StudentApplicant(
+                3, "Ayesha Siddiqua", "2207040", "CSE (2K22)",
+                3.92, "Computer Vision, OpenCV, YOLO",
+                "Autonomous Vehicle Perception Lab", "Accepted"
+        ));
+        return list;
+    }
 }
