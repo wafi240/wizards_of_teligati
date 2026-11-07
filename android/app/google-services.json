@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "720102215323",
+    "project_id": "wizards-of-teligati",
+    "storage_bucket": "wizards-of-teligati.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720102215323:android:13065f092a710f1ce9403e",
+        "android_client_info": {
+          "package_name": "com.teligati.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5_Ps6WwdvHbrq1FUGXyD0terbSYQy5jY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -73,23 +73,34 @@
             <Button
                 android:id="@+id/btnEndorseReference"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/emerald_green"
-                android:text="Give Referral"
+                android:text="Endorse"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnReplyGuidance"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/indigo_dark"
+                android:text="Guidance"
+                android:textColor="@color/mystic_cyan"
+                android:textSize="11sp" />
 
             <Button
                 android:id="@+id/btnDeclineReference"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="6dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/indigo_dark"
+                android:backgroundTint="@color/card_dark"
                 android:text="Decline"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

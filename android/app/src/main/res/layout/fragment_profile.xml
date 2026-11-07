@@ -32,21 +32,65 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvProfileUserName"
-                    android:layout_width="wrap_content"
+                <!-- Avatar & Header Info with MediaStore Picker -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Samun Sadab Wafi ✓ Verified"
-                    android:textColor="@color/mystic_cyan"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-                <TextView
-                    android:id="@+id/tvProfileUserMeta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CSE • Batch 2K23 • Roll 2307003"
-                    android:textColor="@color/accent_purple" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        app:cardCornerRadius="36dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/indigo_dark">
+
+                        <ImageView
+                            android:id="@+id/ivProfileAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="6dp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Profile Picture"
+                            android:src="@drawable/ic_nav_profile" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvProfileUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Samun Sadab Wafi ✓ Verified"
+                            android:textColor="@color/mystic_cyan"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvProfileUserMeta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CSE • Batch 2K23 • Roll 2307003"
+                            android:textColor="@color/accent_purple" />
+
+                        <Button
+                            android:id="@+id/btnSelectProfileImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="@color/indigo_dark"
+                            android:text="📷 Choose Photo (MediaStore)"
+                            android:textColor="@color/mystic_cyan"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -61,6 +105,15 @@
                     android:text="Clubs: SGIPC (Exec), KUET Career Club, IEEE"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnEditProfileDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/accent_purple"
+                    android:text="Edit Profile Information"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnExportResume"

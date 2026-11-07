@@ -1,14 +1,17 @@
 package com.teligati.backend.controller;
 
-import com.teligati.backend.model.*;
-import com.teligati.backend.repository.*;
+import com.teligati.backend.entity.Job;
+import com.teligati.backend.entity.Profile;
+import com.teligati.backend.entity.Project;
+import com.teligati.backend.repository.JobRepository;
+import com.teligati.backend.repository.ProfileRepository;
+import com.teligati.backend.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("*")
 public class ApiController {
 
     @Autowired private ProfileRepository profileRepository;

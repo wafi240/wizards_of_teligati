@@ -10,28 +10,40 @@
 # Java class files
 *.class
 
-# Generated files
+# Node / npm
+node_modules/
+*/node_modules/
+package-lock.json
+
+# Generated files & build directories
 bin/
 gen/
 out/
 build/
 app/build/
+android/build/
+android/app/build/
 backend/build/
 
 # Gradle files
 .gradle/
+android/.gradle/
+backend/.gradle/
 buildOutput.txt
 
 # Local configuration file (sdk path, etc)
 local.properties
+android/local.properties
 
-# Proguard foldert
+# Proguard folder
 proguard/
 
 # Log Files
 *.log
+firestore-debug.log
+ui-debug.log
 
-# Android Studio / IntelliJ IDEA
+# Android Studio / IntelliJ IDEA / VS Code
 *.iml
 .idea/
 .idea/caches/
@@ -40,6 +52,17 @@ proguard/
 .idea/workspace.xml
 .idea/navEditor.xml
 .idea/assetWizardSettings.xml
+.vscode/
+
+# Environment and sensitive keys
+.env
+*.keystore
+*.jks
+*.key
+*.pem
+*.p12
+serviceAccountKey.json
+service-account*.json
 
 # OS Files
 .DS_Store

@@ -93,6 +93,29 @@
             android:padding="14dp"
             android:textColor="@color/text_primary"
             android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/etRegFacultyPassword"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/card_dark"
+            android:hint="Create Password"
+            android:inputType="textPassword"
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/etRegFacultyToken"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/card_dark"
+            android:hint="Faculty Authorization Token (e.g. DEMO-FACULTY-AUTH-2026)"
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
             android:layout_marginBottom="24dp"/>
 
         <Button

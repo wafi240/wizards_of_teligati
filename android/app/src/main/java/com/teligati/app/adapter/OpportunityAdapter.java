@@ -6,17 +6,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.teligati.app.R;
+import com.teligati.app.data.SessionManager;
+import com.teligati.app.data.repository.AppRepository;
 import com.teligati.app.model.Opportunity;
 import java.util.List;
 
 public class OpportunityAdapter extends RecyclerView.Adapter<OpportunityAdapter.ViewHolder> {
+    public interface OnOpportunityActionListener {
+        void onApply(Opportunity opp, int position);
+        void onViewDetails(Opportunity opp, int position);
+    }
+
     private List<Opportunity> opportunities;
+    private OnOpportunityActionListener listener;
 
     public OpportunityAdapter(List<Opportunity> opportunities) {
         this.opportunities = opportunities;
+    }
+
+    public OpportunityAdapter(List<Opportunity> opportunities, OnOpportunityActionListener listener) {
+        this.opportunities = opportunities;
+        this.listener = listener;
+    }
+
+    public void setActionListener(OnOpportunityActionListener listener) {
+        this.listener = listener;
     }
 
     public void updateList(List<Opportunity> newList) {
@@ -42,6 +60,12 @@ public class OpportunityAdapter extends RecyclerView.Adapter<OpportunityAdapter.
         holder.tvCompensation.setText(opp.getCompensation());
         holder.tvDuration.setText(opp.getDuration());
 
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onViewDetails(opp, position);
+            }
+        });
+
         if (opp.isApplied()) {
             holder.btnApply.setEnabled(false);
             holder.btnApply.setText("Applied ✓");
@@ -49,15 +73,39 @@ public class OpportunityAdapter extends RecyclerView.Adapter<OpportunityAdapter.
             holder.btnApply.setEnabled(true);
             holder.btnApply.setText("Apply Now");
             holder.btnApply.setOnClickListener(v -> {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Apply for " + opp.getTitle())
-                        .setMessage("Submit your verified KUET profile and portfolio for " + opp.getCompensation() + "?")
-                        .setPositiveButton("Submit", (dialog, which) -> {
+                if (listener != null) {
+                    listener.onApply(opp, position);
+                } else {
+                    // Default fallback apply dialog
+                    SessionManager session = SessionManager.getInstance(v.getContext());
+                    String roll = session.getUserId();
+                    AppRepository repo = AppRepository.getInstance(v.getContext());
+
+                    repo.checkApplicationExists(opp.getId(), roll, alreadyApplied -> {
+                        if (alreadyApplied) {
+                            Toast.makeText(v.getContext(), "You have already applied for this position.", Toast.LENGTH_SHORT).show();
                             opp.setApplied(true);
                             notifyItemChanged(position);
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
+                            return;
+                        }
+
+                        new AlertDialog.Builder(v.getContext())
+                                .setTitle("Apply for " + opp.getTitle())
+                                .setMessage("Submit your verified profile (" + session.getUserName() + ", " + roll + ") for " + opp.getCompensation() + "?")
+                                .setPositiveButton("Submit", (dialog, which) -> {
+                                    holder.btnApply.setEnabled(false);
+                                    opp.setApplied(true);
+                                    notifyItemChanged(position);
+                                    repo.applyForJob(
+                                            opp.getId(), roll, session.getUserName(), session.getUserDept(),
+                                            session.getUserCgpa(), "Proficient in requested stack", "Application submitted via Wizards of Teligati",
+                                            res -> Toast.makeText(v.getContext(), "Application recorded & persisted!", Toast.LENGTH_SHORT).show()
+                                    );
+                                })
+                                .setNegativeButton("Cancel", null)
+                                .show();
+                    });
+                }
             });
         }
     }

@@ -16,6 +16,7 @@ public class Opportunity {
     private List<String> skillsRequired;
     private Double minCgpa;
     private boolean isApplied;
+    private String postedByUserId;
 
     public Opportunity(long id, String title, OpportunityCategory category, String organization,
                        String location, String postedByName, String posterRole, String compensation,
@@ -49,4 +50,11 @@ public class Opportunity {
     public Double getMinCgpa() { return minCgpa; }
     public boolean isApplied() { return isApplied; }
     public void setApplied(boolean applied) { isApplied = applied; }
+
+    public String getPostedByUserId() {
+        return postedByUserId != null && !postedByUserId.isEmpty() ? postedByUserId : postedByName;
+    }
+    public void setPostedByUserId(String postedByUserId) {
+        this.postedByUserId = postedByUserId;
+    }
 }

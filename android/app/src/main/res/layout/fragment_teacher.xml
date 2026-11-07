@@ -84,7 +84,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Actions: Post Research Paper & Post Public Research Option -->
+        <!-- Actions: Post Research Paper and Post Public Research Option -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,6 +121,15 @@
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnTeacherReferenceRequests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/indigo_dark"
+            android:text="📜 Academic Recommendations &amp; Reference Requests"
+            android:textColor="@color/mystic_cyan" />
 
         <!-- Segment: Accept PhD Proposal or Research Proposal -->
         <LinearLayout

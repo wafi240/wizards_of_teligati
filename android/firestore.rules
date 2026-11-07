@@ -1,0 +1,466 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // 0. CORE HELPER FUNCTIONS & AUTHENTICATION CONTEXT
+    // =========================================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isAuthorizedFaculty(email) {
+      return exists(/databases/$(database)/documents/authorized_faculty/$(email));
+    }
+
+    function getUserData(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+
+    function getUserRole(uid) {
+      return getUserData(uid).role;
+    }
+
+    // Public Profile Allowlist & Field Validation (Zero Leakage of Private Attributes)
+    function isValidPublicProfile(uid) {
+      let data = request.resource.data;
+      let allowedKeys = [
+        'uid', 'name', 'role', 'department', 'batch',
+        'company', 'position', 'designation', 'lab', 'researchArea', 'avatarUrl'
+      ];
+      return data.keys().hasOnly(allowedKeys)
+             && data.keys().hasAll(['uid', 'name', 'role'])
+             && data.uid == uid
+             && data.uid == request.auth.uid
+             && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+             && data.role in ['STUDENT', 'ALUMNI', 'TEACHER']
+             && (!('department' in data) || (data.department is string && data.department.size() <= 100))
+             && (!('batch' in data) || (data.batch is string && data.batch.size() <= 50))
+             && (!('company' in data) || (data.company is string && data.company.size() <= 100))
+             && (!('position' in data) || (data.position is string && data.position.size() <= 100))
+             && (!('designation' in data) || (data.designation is string && data.designation.size() <= 100))
+             && (!('lab' in data) || (data.lab is string && data.lab.size() <= 100))
+             && (!('researchArea' in data) || (data.researchArea is string && data.researchArea.size() <= 200))
+             && (!('avatarUrl' in data) || (data.avatarUrl is string && data.avatarUrl.size() <= 500));
+    }
+
+    // =========================================================================
+    // 1. PRIVATE USERS & PUBLIC DIRECTORY PROFILES
+    // =========================================================================
+    match /users/{uid} {
+      // Strictly Private: Only account owner can read private roll, email, phone, etc.
+      allow read: if isOwner(uid);
+
+      // Account Registration:
+      // - STUDENT and ALUMNI register freely with their authenticated email
+      // - TEACHER accounts require pre-authorization in authorized_faculty
+      allow create: if isOwner(uid)
+                    && request.resource.data.uid == uid
+                    && request.resource.data.email == request.auth.token.email
+                    && (
+                      request.resource.data.role in ['STUDENT', 'ALUMNI'] ||
+                      (request.resource.data.role == 'TEACHER' && isAuthorizedFaculty(request.auth.token.email))
+                    );
+
+      // Account Update:
+      // - UID, Email, and Role are strictly immutable
+      allow update: if isOwner(uid)
+                    && request.resource.data.uid == resource.data.uid
+                    && request.resource.data.email == resource.data.email
+                    && request.resource.data.role == resource.data.role;
+
+      allow delete: if false;
+
+      // User's Demo Wallet (Subcollection: STRICTLY DEMO SIMULATION)
+      match /demo_wallet/{docId} {
+        allow read: if isOwner(uid);
+
+        // Initial wallet provisioning: 10,000 DEMO_CREDITS initial grant matching backend
+        allow create: if isOwner(uid)
+                      && request.resource.data.keys().hasOnly(['availableBalance', 'escrowBalance', 'currency', 'updatedAt', 'disclaimer', 'demoNotice'])
+                      && request.resource.data.availableBalance is number
+                      && request.resource.data.availableBalance >= 0
+                      && request.resource.data.availableBalance <= 10000
+                      && request.resource.data.escrowBalance == 0
+                      && request.resource.data.currency in ['DEMO_CREDITS', 'BDT'];
+
+        // Balance updates: Cannot be negative, capped at demo ceiling
+        allow update: if isOwner(uid)
+                      && request.resource.data.currency == resource.data.currency
+                      && request.resource.data.availableBalance is number
+                      && request.resource.data.availableBalance >= 0
+                      && request.resource.data.availableBalance <= 100000
+                      && request.resource.data.escrowBalance is number
+                      && request.resource.data.escrowBalance >= 0;
+
+        allow delete: if false;
+      }
+
+      // User's Notifications (Subcollection: Hardened against spam, impersonation, and forgery)
+      match /notifications/{notifId} {
+        allow read: if isOwner(uid);
+
+        // Strict Notification Creation:
+        // - recipientUid must match target path {uid}
+        // - senderUid must match authenticated caller
+        // - Initial status must be unread
+        // - String sizes are strictly bounded
+        // - Self notifications are allowed
+        // - Peer notifications are allowed ONLY if connected to a verified real workflow document
+        allow create: if isAuthenticated()
+                      && request.resource.data.recipientUid == uid
+                      && request.resource.data.senderUid == request.auth.uid
+                      && request.resource.data.read == false
+                      && request.resource.data.title is string
+                      && request.resource.data.title.size() > 0
+                      && request.resource.data.title.size() <= 150
+                      && request.resource.data.message is string
+                      && request.resource.data.message.size() > 0
+                      && request.resource.data.message.size() <= 1000
+                      && (
+                        // Case 1: Self-confirmation notifications
+                        (isOwner(uid) && request.resource.data.senderUid == uid)
+                        ||
+                        // Case 2: Proposal decision (sender must be assigned faculty of the real proposal)
+                        (
+                          request.resource.data.type == 'PROPOSAL_DECISION'
+                          && getUserRole(request.auth.uid) == 'TEACHER'
+                          && exists(/databases/$(database)/documents/research_proposals/$(request.resource.data.referenceId))
+                          && get(/databases/$(database)/documents/research_proposals/$(request.resource.data.referenceId)).data.facultyUid == request.auth.uid
+                          && get(/databases/$(database)/documents/research_proposals/$(request.resource.data.referenceId)).data.studentUid == uid
+                        )
+                        ||
+                        // Case 3: Job application decision (sender must be poster of the real job application)
+                        (
+                          request.resource.data.type == 'APPLICATION_DECISION'
+                          && getUserRole(request.auth.uid) in ['ALUMNI', 'TEACHER']
+                          && exists(/databases/$(database)/documents/job_applications/$(request.resource.data.referenceId))
+                          && get(/databases/$(database)/documents/job_applications/$(request.resource.data.referenceId)).data.posterUid == request.auth.uid
+                          && get(/databases/$(database)/documents/job_applications/$(request.resource.data.referenceId)).data.applicantUid == uid
+                        )
+                        ||
+                        // Case 4: Reference request decision (sender must be referee alumni of the real request)
+                        (
+                          request.resource.data.type == 'REFERENCE_DECISION'
+                          && getUserRole(request.auth.uid) == 'ALUMNI'
+                          && exists(/databases/$(database)/documents/reference_requests/$(request.resource.data.referenceId))
+                          && get(/databases/$(database)/documents/reference_requests/$(request.resource.data.referenceId)).data.alumniUid == request.auth.uid
+                          && get(/databases/$(database)/documents/reference_requests/$(request.resource.data.referenceId)).data.studentUid == uid
+                        )
+                        ||
+                        // Case 5: Direct message notification (sender and recipient must share an active conversation)
+                        (
+                          request.resource.data.type == 'MESSAGE'
+                          && exists(/databases/$(database)/documents/conversations/$(request.resource.data.referenceId))
+                          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(request.resource.data.referenceId)).data.participantUids
+                          && uid in get(/databases/$(database)/documents/conversations/$(request.resource.data.referenceId)).data.participantUids
+                        )
+                      );
+
+        // Recipient can only mark notification as read
+        allow update: if isOwner(uid)
+                      && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+                      && request.resource.data.read is bool;
+
+        // Recipient can dismiss/delete their notifications
+        allow delete: if isOwner(uid);
+      }
+    }
+
+    match /public_profiles/{uid} {
+      allow read: if isAuthenticated();
+
+      allow create: if isOwner(uid) && isValidPublicProfile(uid);
+
+      allow update: if isOwner(uid) && isValidPublicProfile(uid);
+
+      allow delete: if false;
+    }
+
+    match /authorized_faculty/{email} {
+      allow read: if isAuthenticated() && request.auth.token.email == email;
+      allow write: if false; // Console-managed exclusively
+    }
+
+    // =========================================================================
+    // 2. ASSISTANT JOBS & PROFESSIONAL OPPORTUNITIES
+    // =========================================================================
+    match /jobs/{jobId} {
+      allow read: if isAuthenticated();
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.postedByUid == request.auth.uid
+                    && getUserRole(request.auth.uid) in ['ALUMNI', 'TEACHER']
+                    && request.resource.data.postedByRole == getUserRole(request.auth.uid);
+
+      allow update: if isAuthenticated()
+                    && resource.data.postedByUid == request.auth.uid
+                    && request.resource.data.postedByUid == resource.data.postedByUid;
+
+      allow delete: if isAuthenticated()
+                    && resource.data.postedByUid == request.auth.uid;
+    }
+
+    // =========================================================================
+    // 3. JOB APPLICATIONS & APPLICANT STATUS
+    // =========================================================================
+    match /job_applications/{appId} {
+      allow read: if isAuthenticated()
+                  && (resource.data.applicantUid == request.auth.uid || resource.data.posterUid == request.auth.uid);
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.applicantUid == request.auth.uid
+                    && request.resource.data.status in ['PENDING', 'APPLIED']
+                    && request.resource.data.applicantUid != request.resource.data.posterUid;
+
+      allow update: if isAuthenticated() && (
+        // Workflow A: Job poster makes decision (ACCEPT / REJECT / UNDER_REVIEW)
+        (
+          resource.data.posterUid == request.auth.uid
+          && request.resource.data.applicantUid == resource.data.applicantUid
+          && request.resource.data.posterUid == resource.data.posterUid
+          && request.resource.data.jobId == resource.data.jobId
+          && request.resource.data.status in ['ACCEPTED', 'REJECTED', 'UNDER_REVIEW', 'PENDING']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'posterNotes', 'updatedAt'])
+        )
+        ||
+        // Workflow B: Applicant withdraws or updates statement while pending
+        (
+          resource.data.applicantUid == request.auth.uid
+          && resource.data.status in ['PENDING', 'UNDER_REVIEW', 'APPLIED']
+          && request.resource.data.applicantUid == resource.data.applicantUid
+          && request.resource.data.posterUid == resource.data.posterUid
+          && request.resource.data.jobId == resource.data.jobId
+          && request.resource.data.status in [resource.data.status, 'WITHDRAWN']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'statement', 'resumeUrl', 'updatedAt'])
+        )
+      );
+
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 4. RESEARCH PAPERS & ACTIVE CALLS FOR CO-AUTHORS
+    // =========================================================================
+    match /research_papers/{paperId} {
+      allow read: if isAuthenticated();
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.ownerUid == request.auth.uid
+                    && getUserRole(request.auth.uid) in ['TEACHER', 'ALUMNI', 'STUDENT'];
+
+      allow update, delete: if isAuthenticated()
+                            && resource.data.ownerUid == request.auth.uid;
+    }
+
+    // =========================================================================
+    // 5. RESEARCH PROPOSALS (Student -> Faculty Advisor)
+    // =========================================================================
+    match /research_proposals/{proposalId} {
+      allow read: if isAuthenticated()
+                  && (resource.data.studentUid == request.auth.uid || resource.data.facultyUid == request.auth.uid);
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.studentUid == request.auth.uid
+                    && request.resource.data.status == 'PENDING'
+                    && request.resource.data.studentUid != request.resource.data.facultyUid;
+
+      allow update: if isAuthenticated() && (
+        // Workflow A: Assigned Faculty Member records decision & feedback
+        (
+          resource.data.facultyUid == request.auth.uid
+          && request.resource.data.studentUid == resource.data.studentUid
+          && request.resource.data.facultyUid == resource.data.facultyUid
+          && request.resource.data.submittedAt == resource.data.submittedAt
+          && request.resource.data.topic == resource.data.topic
+          && request.resource.data.proposalAbstract == resource.data.proposalAbstract
+          && request.resource.data.degreeType == resource.data.degreeType
+          && request.resource.data.status in ['ACCEPTED', 'REJECTED', 'REVISION_REQUESTED', 'PENDING']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'feedback', 'updatedAt'])
+        )
+        ||
+        // Workflow B: Student author edits content or resubmits while pending / revision requested
+        (
+          resource.data.studentUid == request.auth.uid
+          && resource.data.status in ['PENDING', 'REVISION_REQUESTED']
+          && request.resource.data.studentUid == resource.data.studentUid
+          && request.resource.data.facultyUid == resource.data.facultyUid
+          && request.resource.data.submittedAt == resource.data.submittedAt
+          && (!('feedback' in resource.data) || request.resource.data.feedback == resource.data.feedback)
+          && request.resource.data.status in [resource.data.status, 'PENDING']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['topic', 'proposalAbstract', 'degreeType', 'status', 'updatedAt'])
+        )
+      );
+
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 6. MESSAGING & REAL-TIME CONVERSATIONS
+    // =========================================================================
+    match /conversations/{conversationId} {
+      allow read: if isAuthenticated()
+                  && request.auth.uid in resource.data.participantUids;
+
+      // Creation constraints:
+      // - Exactly 2 distinct participant UIDs
+      // - Current authenticated user must be one participant
+      // - Other participant must exist in public directory
+      allow create: if isAuthenticated()
+                    && request.resource.data.participantUids is list
+                    && request.resource.data.participantUids.size() == 2
+                    && request.auth.uid in request.resource.data.participantUids
+                    && request.resource.data.participantUids[0] != request.resource.data.participantUids[1]
+                    && exists(/databases/$(database)/documents/public_profiles/$(
+                      request.resource.data.participantUids[0] == request.auth.uid
+                        ? request.resource.data.participantUids[1]
+                        : request.resource.data.participantUids[0]
+                    ));
+
+      // Updating Conversation:
+      // - participantUids is strictly immutable (prevents adding unauthorized users)
+      // - Only safe last-message metadata can be updated
+      allow update: if isAuthenticated()
+                    && request.auth.uid in resource.data.participantUids
+                    && request.resource.data.participantUids == resource.data.participantUids
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+                      'lastMessage', 'lastMessageTime', 'lastSenderUid', 'unreadCounts', 'updatedAt'
+                    ])
+                    && request.resource.data.lastSenderUid == request.auth.uid;
+
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if isAuthenticated()
+                    && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
+
+        allow create: if isAuthenticated()
+                      && request.resource.data.senderUid == request.auth.uid
+                      && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids
+                      && request.resource.data.content is string
+                      && request.resource.data.content.size() > 0
+                      && request.resource.data.content.size() <= 2000;
+
+        // Messages are strictly permanent and immutable
+        allow update, delete: if false;
+      }
+    }
+
+    // =========================================================================
+    // 7. STUDENT PORTFOLIO PROJECTS
+    // =========================================================================
+    match /student_projects/{projectId} {
+      allow read: if isAuthenticated();
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.studentUid == request.auth.uid;
+
+      allow update, delete: if isAuthenticated()
+                            && resource.data.studentUid == request.auth.uid;
+    }
+
+    // =========================================================================
+    // 8. DEMO WALLET TRANSACTIONS & ESCROW (STRICTLY DEMO SIMULATION)
+    // =========================================================================
+    match /demo_transactions/{txId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.amount is number
+                    && request.resource.data.amount > 0;
+      allow update, delete: if false;
+    }
+
+    match /demo_escrows/{escrowId} {
+      allow read: if isAuthenticated()
+                  && (resource.data.employerUid == request.auth.uid || resource.data.freelancerUid == request.auth.uid);
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.employerUid == request.auth.uid
+                    && request.resource.data.employerUid != request.resource.data.freelancerUid
+                    && request.resource.data.amount is number
+                    && request.resource.data.amount > 0
+                    && request.resource.data.status == 'HELD';
+
+      allow update: if isAuthenticated()
+                    && request.resource.data.employerUid == resource.data.employerUid
+                    && request.resource.data.freelancerUid == resource.data.freelancerUid
+                    && request.resource.data.amount == resource.data.amount
+                    && request.resource.data.jobId == resource.data.jobId
+                    && (
+                      // Workflow A: Employer releases or refunds held escrow
+                      (
+                        resource.data.employerUid == request.auth.uid
+                        && resource.data.status == 'HELD'
+                        && request.resource.data.status in ['RELEASED', 'REFUNDED']
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt', 'resolutionNote'])
+                      )
+                      ||
+                      // Workflow B: Freelancer submits deliverable or flags dispute
+                      (
+                        resource.data.freelancerUid == request.auth.uid
+                        && resource.data.status == 'HELD'
+                        && request.resource.data.status in ['HELD', 'DISPUTED']
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'submissionNote', 'updatedAt'])
+                      )
+                    );
+
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 9. REFERENCE REQUESTS & RECOMMENDATIONS
+    // =========================================================================
+    match /reference_requests/{requestId} {
+      allow read: if isAuthenticated()
+                  && (resource.data.studentUid == request.auth.uid || resource.data.alumniUid == request.auth.uid);
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.studentUid == request.auth.uid
+                    && request.resource.data.studentUid != request.resource.data.alumniUid
+                    && request.resource.data.status == 'PENDING';
+
+      allow update: if isAuthenticated()
+                    && request.resource.data.studentUid == resource.data.studentUid
+                    && request.resource.data.alumniUid == resource.data.alumniUid
+                    && (
+                      // Workflow A: Targeted Alumni makes decision & adds recommendation text
+                      (
+                        resource.data.alumniUid == request.auth.uid
+                        && request.resource.data.status in ['ACCEPTED', 'REJECTED', 'COMPLETED']
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'recommendationText', 'responseNotes', 'updatedAt'])
+                      )
+                      ||
+                      // Workflow B: Student cancels request while pending
+                      (
+                        resource.data.studentUid == request.auth.uid
+                        && resource.data.status == 'PENDING'
+                        && request.resource.data.status == 'CANCELLED'
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
+                      )
+                    );
+
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 10. COURSE REQUIREMENT DEMO ANNOUNCEMENTS
+    // =========================================================================
+    match /demo_announcements/{docId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
+    // =========================================================================
+    // DEFAULT STRICT DENY
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

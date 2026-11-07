@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_nav_home"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_assistant_jobs"
+            android:icon="@drawable/ic_nav_careers"
+            android:title="Assistant Jobs" />
+        <item
+            android:id="@+id/nav_research_papers"
+            android:icon="@drawable/ic_nav_spellbook"
+            android:title="Research Papers" />
+        <item
+            android:id="@+id/nav_reference_opps"
+            android:icon="@drawable/ic_nav_explore"
+            android:title="Reference Opportunities" />
+        <item
+            android:id="@+id/nav_alumni_dir"
+            android:icon="@drawable/ic_directory"
+            android:title="Alumni Directory" />
+        <item
+            android:id="@+id/nav_portfolio"
+            android:icon="@drawable/ic_nav_profile"
+            android:title="My Portfolio" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history"
+            android:title="My History" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_messages"
+            android:title="Messages" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notifications"
+            android:title="Notifications" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+    </group>
+</menu>

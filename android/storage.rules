@@ -1,0 +1,75 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // =========================================================================
+    // HELPER FUNCTIONS & AUTHENTICATION CONTEXT
+    // =========================================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isValidSize(maxMb) {
+      return request.resource.size < maxMb * 1024 * 1024;
+    }
+
+    // =========================================================================
+    // 1. PROFILE AVATARS (Max 2MB, Image MIME types only)
+    // =========================================================================
+    match /profile_avatars/{uid}.jpg {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(uid)
+                   && request.resource.contentType.matches('image/.*')
+                   && isValidSize(2);
+    }
+
+    // =========================================================================
+    // 2. RESEARCH PAPERS & PUBLICATIONS (Max 15MB, PDF MIME types only)
+    // =========================================================================
+    match /research_papers/{paperId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+                   && request.resource.contentType == 'application/pdf'
+                   && isValidSize(15);
+    }
+
+    // =========================================================================
+    // 3. STUDENT RESUMES & CVS (Max 5MB, PDF MIME types only)
+    // =========================================================================
+    match /student_resumes/{uid}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(uid)
+                   && request.resource.contentType == 'application/pdf'
+                   && isValidSize(5);
+    }
+
+    // =========================================================================
+    // 4. STUDENT PROJECT SHOWCASE PREVIEWS (Max 5MB, Image MIME types only)
+    // =========================================================================
+    match /project_previews/{projectId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+                   && request.resource.contentType.matches('image/.*')
+                   && isValidSize(5);
+    }
+
+    // =========================================================================
+    // 5. DEMO MEDIA (Max 2MB, For course requirement demonstration)
+    // =========================================================================
+    match /demo_media/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isValidSize(2);
+    }
+
+    // =========================================================================
+    // DEFAULT STRICT DENY
+    // =========================================================================
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

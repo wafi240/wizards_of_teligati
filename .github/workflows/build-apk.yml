@@ -42,17 +42,31 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "Wizards of Teligati v1.0.0 - Android APK"
+          tag_name: v1.1.0
+          name: "Wizards of Teligati - Final"
           body: |
-            ### 🧙 Wizards of Teligati (Android App)
-            **KUET's Professional, Career & Collaboration Network**
-            - 100% Pure Java
-            - Dedicated Student, Alumni, and Faculty login & registration portals
-            - Tuition replacement assistant engine & escrow ledger
-            
-            📲 **Download & Install:**
-            Download `app-debug.apk` below directly onto your Android phone and install!
+            ### 🧙 Wizards of Teligati — Android Application
+            **KUET's Academic, Research & Career Collaboration Platform**
+
+            #### 📱 Direct APK Download & Installation
+            1. Download `app-debug.apk` directly to your Android device from the Assets section below.
+            2. If prompted by Android, allow **"Install unknown apps"** for your browser/file manager.
+            3. Tap **Install** and open **Wizards of Teligati**.
+            4. Choose your portal: **Student**, **Faculty**, or **Alumni**.
+
+            #### 🧪 Pre-Configured Demo Accounts (Password: `123456`)
+            - **Student:** `farhan.student.demo@example.com` (Farhan)
+            - **Student:** `raju.student.demo@example.com` (Raju)
+            - **Alumni:** `adnan.alumni.demo@example.com` (Adnan)
+            - **Alumni:** `joy.alumni.demo@example.com` (Joy)
+            - **Teacher:** `fahad.teacher.demo@example.com` (Fahad)
+            - **Teacher:** `wafi.teacher.demo@example.com` (Wafi)
+
+            #### 📦 Release Details
+            - **Package:** `com.teligati.app`
+            - **Target SDK:** Android 14 (API 34)
+            - **Min SDK:** Android 8.0 (API 26)
+            - **Architecture:** Firebase Auth + Cloud Firestore + Room SQLite Offline Mirror
           draft: false
           prerelease: false
           files: android/app/build/outputs/apk/debug/app-debug.apk

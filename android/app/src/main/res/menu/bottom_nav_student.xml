@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_nav_home"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/nav_assistant_jobs"
+        android:icon="@drawable/ic_nav_careers"
+        android:title="Assistants" />
+    <item
+        android:id="@+id/nav_research_papers"
+        android:icon="@drawable/ic_nav_spellbook"
+        android:title="Research" />
+    <item
+        android:id="@+id/nav_alumni_dir"
+        android:icon="@drawable/ic_directory"
+        android:title="Alumni" />
+    <item
+        android:id="@+id/nav_portfolio"
+        android:icon="@drawable/ic_nav_profile"
+        android:title="Portfolio" />
+</menu>

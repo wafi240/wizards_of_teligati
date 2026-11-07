@@ -73,23 +73,34 @@
             <Button
                 android:id="@+id/btnAcceptProposal"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/emerald_green"
-                android:text="Accept Proposal"
+                android:text="Accept"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <Button
-                android:id="@+id/btnReviewProposal"
+                android:id="@+id/btnRequestRevision"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="6dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/indigo_dark"
-                android:text="View Details"
+                android:text="Revision"
+                android:textColor="@color/mystic_cyan"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnRejectProposal"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/card_dark"
+                android:text="Reject"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

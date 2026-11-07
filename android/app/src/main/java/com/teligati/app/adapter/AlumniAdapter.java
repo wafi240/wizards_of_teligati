@@ -13,10 +13,25 @@ import com.teligati.app.model.AlumniProfile;
 import java.util.List;
 
 public class AlumniAdapter extends RecyclerView.Adapter<AlumniAdapter.ViewHolder> {
+    public interface OnAlumniActionListener {
+        void onGuidance(AlumniProfile a, int position);
+        void onViewDetails(AlumniProfile a, int position);
+    }
+
     private List<AlumniProfile> alumniList;
+    private OnAlumniActionListener listener;
 
     public AlumniAdapter(List<AlumniProfile> alumniList) {
         this.alumniList = alumniList;
+    }
+
+    public AlumniAdapter(List<AlumniProfile> alumniList, OnAlumniActionListener listener) {
+        this.alumniList = alumniList;
+        this.listener = listener;
+    }
+
+    public void setListener(OnAlumniActionListener listener) {
+        this.listener = listener;
     }
 
     public void updateList(List<AlumniProfile> newList) {
@@ -40,16 +55,33 @@ public class AlumniAdapter extends RecyclerView.Adapter<AlumniAdapter.ViewHolder
         holder.tvLocation.setText("📍 " + a.getCity() + ", " + a.getCountry());
         holder.tvBio.setText(a.getBio());
 
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onViewDetails(a, position);
+            }
+        });
+
         holder.btnGuidance.setOnClickListener(v -> {
-            new AlertDialog.Builder(v.getContext())
-                    .setTitle("Request Guidance from " + a.getName())
-                    .setMessage("Send a direct career guidance and mentorship request?")
-                    .setPositiveButton("Send Request", (dialog, which) -> {
-                        holder.btnGuidance.setText("Requested ✓");
-                        holder.btnGuidance.setEnabled(false);
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .show();
+            if (listener != null) {
+                listener.onGuidance(a, position);
+            } else {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Request Guidance from " + a.getName())
+                        .setMessage("Send a direct career guidance and mentorship request to " + a.getName() + "?")
+                        .setPositiveButton("Send Request", (dialog, which) -> {
+                            holder.btnGuidance.setText("Requested ✓");
+                            holder.btnGuidance.setEnabled(false);
+                            com.teligati.app.data.SessionManager session = com.teligati.app.data.SessionManager.getInstance(v.getContext());
+                            com.teligati.app.data.repository.AppRepository.getInstance(v.getContext()).sendDirectMessage(
+                                    session.getUserId(), session.getUserName(),
+                                    String.valueOf(a.getId()), a.getName(),
+                                    "Hello " + a.getName() + ", I would appreciate your mentorship and career guidance regarding opportunities in " + a.getCurrentCompany() + ".",
+                                    msgId -> android.widget.Toast.makeText(v.getContext(), "Guidance request delivered to " + a.getName() + "!", android.widget.Toast.LENGTH_SHORT).show()
+                            );
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            }
         });
     }
 
