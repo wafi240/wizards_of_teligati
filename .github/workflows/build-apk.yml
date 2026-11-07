@@ -24,7 +24,16 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Set Android SDK Path
+        shell: pwsh
+        run: |
+          $sdkPath = "$env:ANDROID_HOME"
+          Write-Host "ANDROID_HOME: $sdkPath"
+          Set-Content -Path "android/local.properties" -Value "sdk.dir=$($sdkPath.Replace('\', '\\'))"
+          Get-Content "android/local.properties"
+
       - name: Build Debug APK with Gradle
+        shell: pwsh
         run: |
           cd android
           .\gradlew.bat assembleDebug --stacktrace
