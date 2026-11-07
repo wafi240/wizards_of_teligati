@@ -24,30 +24,11 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Set Android SDK Path
-        shell: pwsh
-        run: |
-          $sdkPath = "$env:ANDROID_HOME"
-          Write-Host "ANDROID_HOME: $sdkPath"
-          Set-Content -Path "android/local.properties" -Value "sdk.dir=$($sdkPath.Replace('\', '\\'))"
-          Get-Content "android/local.properties"
-
       - name: Build Debug APK with Gradle
-        shell: pwsh
+        shell: cmd
         run: |
           cd android
-          try {
-            .\gradlew.bat assembleDebug --stacktrace 2>&1 | Tee-Object -FilePath "build.log"
-          } finally {
-            Get-Content "build.log" -Tail 50 | Write-Host
-          }
-
-      - name: Upload Build Log if Failed
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: android/build.log
+          call gradlew.bat assembleDebug --no-daemon --stacktrace
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
