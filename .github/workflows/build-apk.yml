@@ -36,7 +36,18 @@ jobs:
         shell: pwsh
         run: |
           cd android
-          .\gradlew.bat assembleDebug --stacktrace
+          try {
+            .\gradlew.bat assembleDebug --stacktrace 2>&1 | Tee-Object -FilePath "build.log"
+          } finally {
+            Get-Content "build.log" -Tail 50 | Write-Host
+          }
+
+      - name: Upload Build Log if Failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: android/build.log
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
