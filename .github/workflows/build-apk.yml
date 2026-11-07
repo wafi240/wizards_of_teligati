@@ -24,8 +24,10 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Grant Execute Permission to gradlew
-        run: chmod +x android/gradlew
+      - name: Fix line endings and grant execute permission
+        run: |
+          sed -i 's/\r$//' android/gradlew
+          chmod +x android/gradlew
 
       - name: Build Debug APK with Gradle
         run: |
